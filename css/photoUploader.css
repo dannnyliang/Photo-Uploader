@@ -10,6 +10,11 @@ i{
   size: 20px;
 }
 
+.photo{
+  width: 100%;
+  box-shadow: 0px  1px 5px #000;
+}
+
 input[type="file"]{
   position: absolute;
   top: 0;

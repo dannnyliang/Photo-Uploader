@@ -8,11 +8,6 @@ $(document).ready(function () {
         $('#photo-wrap').show()
       }
       
-      // photourl = window.URL.createObjectURL(this.files[0])
-      // $('#photo').attr('src', photourl)
-      // console.log(photourl);
-      // upload(photourl);
-
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#photo').attr('src', e.target.result)
@@ -41,7 +36,7 @@ $(document).ready(function () {
     resize = new Croppie(photo, {
       enableExif: true,
       viewport: { width: rect.width, height: rect.height },
-      boundary: { width: rect.width, height: rect.height },
+      boundary: { width: rect.width+50, height: rect.height+50 },
       showZoomer: false,
       enableZoomer: false,
       enableResize: true
@@ -52,32 +47,16 @@ $(document).ready(function () {
     })
   })
 
-  // function effectSliders(canvas) {  
-  // const ctx = canvas.getContext("2d");
-  // console.log(ctx);
-  // $('input[type=range]').change(function () {  
-    // $('canvas').attr(
-    //   'filter', 'blur(' + $('#blur').val() + 'px) brightness(' + ($('#brightness').val()*10+100) + '%) grayscale(' + $('#grayscale').val()*10 + '%) invert(' + $('#invert').val()*10 + '%)'
-    // )
-    // ctx.filter = 'blur(' + $('#blur').val() + 'px) brightness(' + ($('#brightness').val() * 10 + 100) + '%) grayscale(' + $('#grayscale').val() * 10 + '%) invert(' + $('#invert').val() * 10 + '%)'
-    // let str = 'blur(' + $('#blur').val() + 'px) brightness(' + ($('#brightness').val() * 10 + 100) + '%) grayscale(' + $('#grayscale').val() * 10 + '%) invert(' + $('#invert').val() * 10 + '%)'
-    // ctx.filter = "blur(10px)"
-    // console.log(str);
-  // })
-  // }
-
   let canvas;
+  $('a').hide()
   $('#result').click(function () {  
-    // resize.result('blob').then(function (blob) { 
-    //   $('#croped').attr('src', window.URL.createObjectURL(blob))
-    // })
     if ($('canvas')) {
       $('canvas').remove()
     }
     resize.result('rawcanvas').then(function (cvs) {  
       canvas = cvs
       $('#canvas-wrap').append(canvas)
-      // effectSliders(canvas)
+      $('a').show()
     })
     $('#photo-wrap').hide()
   })
@@ -159,8 +138,7 @@ $(document).ready(function () {
 
   if ($('canvas')) {
     $('a').click(function () {
-      console.log($('canvas')[0]);
-      this.href = $('canvas')[0].toDataURL();// Change here
+      this.href = $('canvas')[0].toDataURL();
       this.download = 'croped.png';
     });
   }
